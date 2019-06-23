@@ -1,0 +1,46 @@
+const express = require('express')
+const bodyParser = require('body-parser')
+const portfinder = require('portfinder')
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const WebpackConfig = require('./webpack.config')
+const app = express()
+const compiler = webpack(WebpackConfig)
+const router = express.Router()
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: '/__build__/',
+  stats: {
+    colors: true,
+    chunks: false
+  }
+}))
+
+router.get('/simple/get', function(req, res) {
+  res.json({
+    msg: `hello world`
+  })
+})
+router.get('/base/get', function(req, res) {
+  res.json(req.query)
+})
+app.use(router)
+app.use(webpackHotMiddleware(compiler))
+
+app.use(express.static(__dirname))
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+module.exports = new Promise(resolve => {
+  portfinder.basePort = process.env.PORT || 8080
+  portfinder.getPort(function (err, port) {
+    //
+    // `port` is guaranteed to be a free port
+    // in this scope.
+    //
+    app.listen(port, () => {
+      console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`)
+    })
+    resolve(app)
+  })
+})

@@ -1,7 +1,7 @@
-import { AxiosRequestConfig } from '../types'
+import { AxiosRequestConfig } from './types'
 export default function xhr(config: AxiosRequestConfig) {
-  const { data, url, method } = config
-  let request = new XMLHttpRequest()
-  request.open('get', 'example.php', false)
-  request.send(null)
+  const { data = null, url, method = 'get' } = config
+  const request = new XMLHttpRequest()
+  request.open(method.toLocaleUpperCase(), url, false)
+  request.send(data)
 }
