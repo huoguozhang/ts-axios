@@ -1,62 +1,27 @@
 import axios from '../../src/index'
-
+const arr = new Int32Array([21, 31])
 axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    foo: ['bar', 'baz']
+  method: 'post',
+  url: '/base/post',
+  headers: {
+    'content-type': 'application/json;'
+  },
+  data: {
+    a: 1,
+    b: 2,
+    arr
   }
 })
 
-axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    foo: {
-      bar: 'baz'
-    }
-  }
-})
-
-const date = new Date()
+const paramsString = 'q=URLUtils.searchParams&topic=api'
+const searchParams = new URLSearchParams(paramsString)
 
 axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    date
-  }
+  method: 'post',
+  url: '/base/post',
+  /*headers: {
+    'content-type': 'application/json;'
+  },*/
+  data: searchParams
 })
-
-axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    foo: '@:$, '
-  }
-})
-
-axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    foo: 'bar',
-    baz: null
-  }
-})
-
-axios({
-  method: 'get',
-  url: '/base/get#hash',
-  params: {
-    foo: 'bar'
-  }
-})
-
-axios({
-  method: 'get',
-  url: '/base/get?foo=bar',
-  params: {
-    bar: 'baz'
-  }
-})
+console.log('base')

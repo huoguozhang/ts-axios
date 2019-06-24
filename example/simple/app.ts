@@ -7,3 +7,4 @@ axios({
     b: 2
   }
 })
+console.log('simple', 'hello world')

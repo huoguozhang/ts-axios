@@ -10,9 +10,12 @@
 <script>
   const host = 'http://localhost:8082'
   axios({
-    method: 'get',
-    url: host + '/simple/get?name=zlj',
-    params: {
+    method: 'post',
+    url: host + '/post?name=zlj',
+    headers: {
+      'content-type': 'application/json;charset=utf-8'
+    },
+    data: {
       name: '#zlj',
       age: '?zlj',
       food: ':zlj',
