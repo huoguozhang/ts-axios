@@ -258,7 +258,7 @@
 /******/ 				};
 /******/ 			});
 /******/ 			hotUpdate = {};
-/******/ 			var chunkId = "simple";
+/******/ 			var chunkId = "error";
 /******/ 			// eslint-disable-next-line no-lone-blocks
 /******/ 			{
 /******/ 				/*globals chunkId */
@@ -791,20 +791,20 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(2)(__webpack_require__.s = 2);
+/******/ 	return hotCreateRequire(1)(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./example/simple/app.ts":
-/*!*******************************!*\
-  !*** ./example/simple/app.ts ***!
-  \*******************************/
+/***/ "./example/error/app.ts":
+/*!******************************!*\
+  !*** ./example/error/app.ts ***!
+  \******************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/index */ \"./src/index.ts\");\n\nObject(_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n    method: 'get',\n    url: '/simple/get#home',\n    params: {\n        a: 1,\n        b: 2\n    }\n});\nconsole.log('simple', 'hello world');\n\n\n//# sourceURL=webpack:///./example/simple/app.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/index */ \"./src/index.ts\");\n\n// notfound\nObject(_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n    method: 'get',\n    url: '/error/get1'\n}).then(function (res) {\n    console.log(res);\n}).catch(function (e) {\n    console.log(e);\n});\n//\nObject(_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n    method: 'get',\n    url: '/error/get'\n}).then(function (res) {\n    console.log(res);\n}).catch(function (e) {\n    console.log(e);\n});\nsetTimeout(function () {\n    Object(_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n        method: 'get',\n        url: '/error/get'\n    }).then(function (res) {\n        console.log(res);\n    }).catch(function (e) {\n        console.log(e);\n    });\n}, 5000);\nObject(_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n    method: 'get',\n    url: '/error/timeout',\n    timeout: 2000\n}).then(function (res) {\n    console.log(res);\n}).catch(function (e) {\n    console.log(e.message);\n});\n\n\n//# sourceURL=webpack:///./example/error/app.ts?");
 
 /***/ }),
 
@@ -1004,14 +1004,14 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ }),
 
-/***/ 2:
-/*!*******************************************************************!*\
-  !*** multi webpack-hot-middleware/client ./example/simple/app.ts ***!
-  \*******************************************************************/
+/***/ 1:
+/*!******************************************************************!*\
+  !*** multi webpack-hot-middleware/client ./example/error/app.ts ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! webpack-hot-middleware/client */\"./node_modules/webpack-hot-middleware/client.js\");\nmodule.exports = __webpack_require__(/*! /Users/zhanglijian/Desktop/ts-axios/example/simple/app.ts */\"./example/simple/app.ts\");\n\n\n//# sourceURL=webpack:///multi_webpack-hot-middleware/client_./example/simple/app.ts?");
+eval("__webpack_require__(/*! webpack-hot-middleware/client */\"./node_modules/webpack-hot-middleware/client.js\");\nmodule.exports = __webpack_require__(/*! /Users/zhanglijian/Desktop/ts-axios/example/error/app.ts */\"./example/error/app.ts\");\n\n\n//# sourceURL=webpack:///multi_webpack-hot-middleware/client_./example/error/app.ts?");
 
 /***/ })
 

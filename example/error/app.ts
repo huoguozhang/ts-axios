@@ -1,4 +1,4 @@
-import axios from '../../src/index'
+import axios, { AxiosError } from '../../src/index'
 // notfound
 axios({
   method: 'get',
@@ -24,7 +24,7 @@ setTimeout(() => {
     url: '/error/get'
   }).then((res) => {
     console.log(res)
-  }).catch((e) => {
+  }).catch((e: AxiosError) => {
     console.log(e)
   })
 }, 5000)
@@ -37,4 +37,5 @@ axios({
   console.log(res)
 }).catch((e) => {
   console.log(e.message)
+  console.log(e)
 })
