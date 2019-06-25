@@ -25,6 +25,7 @@ app.post('/post', function (req, res) {
   res.send('POST request to the homepage');
 })
 router.post('/base/post', function(req, res) {
+  console.log(req.body)
   res.json(req.body)
 })
 
