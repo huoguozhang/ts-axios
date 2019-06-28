@@ -258,7 +258,7 @@
 /******/ 				};
 /******/ 			});
 /******/ 			hotUpdate = {};
-/******/ 			var chunkId = "simple";
+/******/ 			var chunkId = "extend";
 /******/ 			// eslint-disable-next-line no-lone-blocks
 /******/ 			{
 /******/ 				/*globals chunkId */
@@ -791,20 +791,20 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(3)(__webpack_require__.s = 3);
+/******/ 	return hotCreateRequire(2)(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./example/simple/app.ts":
+/***/ "./example/extend/app.ts":
 /*!*******************************!*\
-  !*** ./example/simple/app.ts ***!
+  !*** ./example/extend/app.ts ***!
   \*******************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/index */ \"./src/index.ts\");\n\nObject(_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n    method: 'get',\n    url: '/simple/get#home',\n    params: {\n        a: 1,\n        b: 2\n    }\n});\nconsole.log('simple', 'hello world');\n\n\n//# sourceURL=webpack:///./example/simple/app.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/index */ \"./src/index.ts\");\n\nObject(_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\n    url: '/extend/post',\n    method: 'post',\n    data: {\n        msg: 'hi'\n    }\n});\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].request({\n    url: '/extend/post',\n    method: 'post',\n    data: {\n        msg: 'hello'\n    }\n});\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].get('/extend/get');\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].options('/extend/options');\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].delete('/extend/delete');\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].head('/extend/head');\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].post('/extend/post', { msg: 'post' });\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].put('/extend/put', { msg: 'put' });\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].patch('/extend/patch', { msg: 'patch' });\n\n\n//# sourceURL=webpack:///./example/extend/app.ts?");
 
 /***/ }),
 
@@ -1063,14 +1063,14 @@ eval("\n\n//# sourceURL=webpack:///./src/types/index.ts?");
 
 /***/ }),
 
-/***/ 3:
+/***/ 2:
 /*!*******************************************************************!*\
-  !*** multi webpack-hot-middleware/client ./example/simple/app.ts ***!
+  !*** multi webpack-hot-middleware/client ./example/extend/app.ts ***!
   \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! webpack-hot-middleware/client */\"./node_modules/webpack-hot-middleware/client.js\");\nmodule.exports = __webpack_require__(/*! /Users/zhanglijian/Desktop/ts-axios/example/simple/app.ts */\"./example/simple/app.ts\");\n\n\n//# sourceURL=webpack:///multi_webpack-hot-middleware/client_./example/simple/app.ts?");
+eval("__webpack_require__(/*! webpack-hot-middleware/client */\"./node_modules/webpack-hot-middleware/client.js\");\nmodule.exports = __webpack_require__(/*! /Users/zhanglijian/Desktop/ts-axios/example/extend/app.ts */\"./example/extend/app.ts\");\n\n\n//# sourceURL=webpack:///multi_webpack-hot-middleware/client_./example/extend/app.ts?");
 
 /***/ })
 

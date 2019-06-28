@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "6f2788f16c21fd0a0082";
+/******/ 	var hotCurrentHash = "2a7fdae0aea5375c79bd";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -932,6 +932,54 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 /***/ }),
 
+/***/ "./src/axios.ts":
+/*!**********************!*\
+  !*** ./src/axios.ts ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _core_Axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core/Axios */ \"./src/core/Axios.ts\");\n/* harmony import */ var _helpers_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers/util */ \"./src/helpers/util.ts\");\n\n\nfunction createInstance() {\n    var context = new _core_Axios__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\n    var instance = _core_Axios__WEBPACK_IMPORTED_MODULE_0__[\"default\"].prototype.request.bind(context);\n    Object(_helpers_util__WEBPACK_IMPORTED_MODULE_1__[\"extend\"])(instance, context);\n    return instance;\n}\nvar axios = createInstance();\n/* harmony default export */ __webpack_exports__[\"default\"] = (axios);\n\n\n//# sourceURL=webpack:///./src/axios.ts?");
+
+/***/ }),
+
+/***/ "./src/core/Axios.ts":
+/*!***************************!*\
+  !*** ./src/core/Axios.ts ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _dispatchRequest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dispatchRequest */ \"./src/core/dispatchRequest.ts\");\n\nvar Axios = /** @class */ (function () {\n    function Axios() {\n    }\n    Axios.prototype.request = function (config) {\n        return Object(_dispatchRequest__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(config);\n    };\n    Axios.prototype.get = function (url, config) {\n        return this._requestMethodWithoutData('get', url, config);\n    };\n    Axios.prototype.delete = function (url, config) {\n        return this._requestMethodWithoutData('delete', url, config);\n    };\n    Axios.prototype.head = function (url, config) {\n        return this._requestMethodWithoutData('head', url, config);\n    };\n    Axios.prototype.options = function (url, config) {\n        return this._requestMethodWithoutData('options', url, config);\n    };\n    Axios.prototype.post = function (url, data, config) {\n        return this._requestMethodWithData('post', url, data, config);\n    };\n    Axios.prototype.put = function (url, data, config) {\n        return this._requestMethodWithData('put', url, data, config);\n    };\n    Axios.prototype.patch = function (url, data, config) {\n        return this._requestMethodWithData('patch', url, data, config);\n    };\n    Axios.prototype._requestMethodWithoutData = function (method, url, config) {\n        return this.request(Object.assign(config || {}, {\n            method: method,\n            url: url\n        }));\n    };\n    Axios.prototype._requestMethodWithData = function (method, url, data, config) {\n        return this.request(Object.assign(config || {}, {\n            method: method,\n            url: url,\n            data: data\n        }));\n    };\n    return Axios;\n}());\n/* harmony default export */ __webpack_exports__[\"default\"] = (Axios);\n\n\n//# sourceURL=webpack:///./src/core/Axios.ts?");
+
+/***/ }),
+
+/***/ "./src/core/dispatchRequest.ts":
+/*!*************************************!*\
+  !*** ./src/core/dispatchRequest.ts ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return dispatchRequest; });\n/* harmony import */ var _xhr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./xhr */ \"./src/core/xhr.ts\");\n/* harmony import */ var _helpers_url__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/url */ \"./src/helpers/url.ts\");\n/* harmony import */ var _helpers_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/data */ \"./src/helpers/data.ts\");\n/* harmony import */ var _helpers_headers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/headers */ \"./src/helpers/headers.ts\");\n\n\n\n\nfunction dispatchRequest(config) {\n    processConfig(config);\n    return Object(_xhr__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(config).then(function (res) { return transformResponseData(res); });\n}\nfunction processConfig(config) {\n    config.url = transformURL(config);\n    config.headers = transformHeader(config);\n    config.data = transformRequestData(config);\n}\nfunction transformHeader(config) {\n    var _a = config.headers, headers = _a === void 0 ? {} : _a, data = config.data;\n    return Object(_helpers_headers__WEBPACK_IMPORTED_MODULE_3__[\"processHeaders\"])(headers, data);\n}\nfunction transformURL(config) {\n    var url = config.url, params = config.params;\n    return Object(_helpers_url__WEBPACK_IMPORTED_MODULE_1__[\"buildURL\"])(url, params);\n}\nfunction transformRequestData(config) {\n    return Object(_helpers_data__WEBPACK_IMPORTED_MODULE_2__[\"transformRequest\"])(config.data);\n}\nfunction transformResponseData(res) {\n    res.data = Object(_helpers_data__WEBPACK_IMPORTED_MODULE_2__[\"transformResponse\"])(res.data);\n    return res;\n}\n\n\n//# sourceURL=webpack:///./src/core/dispatchRequest.ts?");
+
+/***/ }),
+
+/***/ "./src/core/xhr.ts":
+/*!*************************!*\
+  !*** ./src/core/xhr.ts ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return xhr; });\n/* harmony import */ var _helpers_headers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/headers */ \"./src/helpers/headers.ts\");\n/* harmony import */ var _helpers_error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/error */ \"./src/helpers/error.ts\");\n\n\nfunction xhr(config) {\n    return new Promise(function (resolve, reject) {\n        var _a = config.data, data = _a === void 0 ? null : _a, url = config.url, _b = config.method, method = _b === void 0 ? 'get' : _b, headers = config.headers, responseType = config.responseType, timeout = config.timeout;\n        var request = new XMLHttpRequest();\n        if (responseType) {\n            request.responseType = responseType;\n        }\n        request.open(method.toLocaleUpperCase(), url, false);\n        if (timeout) {\n            request.timeout = timeout;\n        }\n        request.ontimeout = function handleTime() {\n            reject(Object(_helpers_error__WEBPACK_IMPORTED_MODULE_1__[\"createError\"])(\"Timeout of \" + timeout + \" ms exceeded\", config, 'ECONNABORTED', request));\n        };\n        request.onerror = function handleError() {\n            reject(Object(_helpers_error__WEBPACK_IMPORTED_MODULE_1__[\"createError\"])('Network Error', config, null, request));\n        };\n        request.onreadystatechange = function handleLoad() {\n            if (request.readyState !== 4) {\n                return false;\n            }\n            var responseHeaders = Object(_helpers_headers__WEBPACK_IMPORTED_MODULE_0__[\"parseHeaders\"])(request.getAllResponseHeaders());\n            var responseData = responseType !== 'text' ? request.response : request.responseText;\n            var response = {\n                data: responseData,\n                status: request.status,\n                statusText: request.statusText,\n                headers: responseHeaders,\n                config: config,\n                request: request\n            };\n            handleResponse(response);\n        };\n        function handleResponse(response) {\n            var status = response.status;\n            if (status >= 200 && status < 300) {\n                resolve(response);\n            }\n            else {\n                reject(Object(_helpers_error__WEBPACK_IMPORTED_MODULE_1__[\"createError\"])(\"request failed with status code \" + response.status, config, null, request, response));\n            }\n        }\n        Object.keys(headers).forEach(function (name) {\n            if (data === null && name.toLocaleLowerCase() === 'content-type') {\n                delete headers[name];\n            }\n            else {\n                request.setRequestHeader(name, headers[name]);\n            }\n        });\n        request.send(data);\n    });\n}\n\n\n//# sourceURL=webpack:///./src/core/xhr.ts?");
+
+/***/ }),
+
 /***/ "./src/helpers/data.ts":
 /*!*****************************!*\
   !*** ./src/helpers/data.ts ***!
@@ -941,6 +989,18 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"transformRequest\", function() { return transformRequest; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"transformResponse\", function() { return transformResponse; });\n/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ \"./src/helpers/util.ts\");\n\nfunction transformRequest(data) {\n    if (Object(_util__WEBPACK_IMPORTED_MODULE_0__[\"isPlainObject\"])(data)) {\n        return JSON.stringify(data);\n    }\n    return data;\n}\nfunction transformResponse(data) {\n    if (typeof data === 'string') {\n        try {\n            data = JSON.parse(data);\n        }\n        catch (e) {\n            throw new Error(e);\n        }\n    }\n    return data;\n}\n\n\n//# sourceURL=webpack:///./src/helpers/data.ts?");
+
+/***/ }),
+
+/***/ "./src/helpers/error.ts":
+/*!******************************!*\
+  !*** ./src/helpers/error.ts ***!
+  \******************************/
+/*! exports provided: AxiosError, createError */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"AxiosError\", function() { return AxiosError; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"createError\", function() { return createError; });\nvar __extends = (undefined && undefined.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar AxiosError = /** @class */ (function (_super) {\n    __extends(AxiosError, _super);\n    function AxiosError(message, config, code, request, response) {\n        var _this = _super.call(this, message) || this;\n        _this.config = config;\n        _this.code = code;\n        _this.request = request;\n        _this.response = response;\n        _this.isAxiosError = true;\n        // 解决拓展error map的坑\n        Object.setPrototypeOf(_this, AxiosError.prototype);\n        return _this;\n    }\n    return AxiosError;\n}(Error));\n\nfunction createError(message, config, code, request, response) {\n    return new AxiosError(message, config, code, request, response);\n}\n\n\n//# sourceURL=webpack:///./src/helpers/error.ts?");
 
 /***/ }),
 
@@ -972,11 +1032,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*!*****************************!*\
   !*** ./src/helpers/util.ts ***!
   \*****************************/
-/*! exports provided: isDate, isPlainObject */
+/*! exports provided: isDate, isPlainObject, extend */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isDate\", function() { return isDate; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isPlainObject\", function() { return isPlainObject; });\nvar toString = Object.prototype.toString;\nfunction isDate(val) {\n    return toString.call(val) === '[object Date]';\n}\n/*export function isObject(val: any): val is Object {\n  return typeof (val) === 'object' && val !== null\n}*/\nfunction isPlainObject(val) {\n    return toString.call(val) === '[object Object]';\n}\n\n\n//# sourceURL=webpack:///./src/helpers/util.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isDate\", function() { return isDate; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isPlainObject\", function() { return isPlainObject; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"extend\", function() { return extend; });\nvar toString = Object.prototype.toString;\nfunction isDate(val) {\n    return toString.call(val) === '[object Date]';\n}\n/*export function isObject(val: any): val is Object {\n  return typeof (val) === 'object' && val !== null\n}*/\nfunction isPlainObject(val) {\n    return toString.call(val) === '[object Object]';\n}\nfunction extend(to, from) {\n    for (var key in from) {\n        to[key] = from[key];\n    }\n    return to;\n}\n\n\n//# sourceURL=webpack:///./src/helpers/util.ts?");
 
 /***/ }),
 
@@ -984,23 +1044,22 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _xhr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./xhr */ \"./src/xhr.ts\");\n/* harmony import */ var _helpers_url__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers/url */ \"./src/helpers/url.ts\");\n/* harmony import */ var _helpers_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers/data */ \"./src/helpers/data.ts\");\n/* harmony import */ var _helpers_headers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers/headers */ \"./src/helpers/headers.ts\");\n\n\n\n\nfunction axios(config) {\n    processConfig(config);\n    return Object(_xhr__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(config).then(function (res) { return transformResponseData(res); });\n}\nfunction processConfig(config) {\n    config.url = transformURL(config);\n    config.headers = transformHeader(config);\n    config.data = transformRequestData(config);\n}\nfunction transformHeader(config) {\n    var _a = config.headers, headers = _a === void 0 ? {} : _a, data = config.data;\n    return Object(_helpers_headers__WEBPACK_IMPORTED_MODULE_3__[\"processHeaders\"])(headers, data);\n}\nfunction transformURL(config) {\n    var url = config.url, params = config.params;\n    return Object(_helpers_url__WEBPACK_IMPORTED_MODULE_1__[\"buildURL\"])(url, params);\n}\nfunction transformRequestData(config) {\n    return Object(_helpers_data__WEBPACK_IMPORTED_MODULE_2__[\"transformRequest\"])(config.data);\n}\nfunction transformResponseData(res) {\n    res.data = Object(_helpers_data__WEBPACK_IMPORTED_MODULE_2__[\"transformResponse\"])(res.data);\n    return res;\n}\n/* harmony default export */ __webpack_exports__[\"default\"] = (axios);\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./axios */ \"./src/axios.ts\");\n/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ \"./src/types/index.ts\");\n/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_types__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _types__WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _types__WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (_axios__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ }),
 
-/***/ "./src/xhr.ts":
-/*!********************!*\
-  !*** ./src/xhr.ts ***!
-  \********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./src/types/index.ts":
+/*!****************************!*\
+  !*** ./src/types/index.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return xhr; });\n/* harmony import */ var _helpers_headers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/headers */ \"./src/helpers/headers.ts\");\n\nfunction xhr(config) {\n    return new Promise(function (resolve, reject) {\n        var _a = config.data, data = _a === void 0 ? null : _a, url = config.url, _b = config.method, method = _b === void 0 ? 'get' : _b, headers = config.headers, responseType = config.responseType, timeout = config.timeout;\n        var request = new XMLHttpRequest();\n        if (responseType) {\n            request.responseType = responseType;\n        }\n        request.open(method.toLocaleUpperCase(), url, false);\n        if (timeout) {\n            request.timeout = timeout;\n        }\n        request.ontimeout = function handleTime() {\n            reject(new Error(\"timeout of \" + timeout + \" ms exceeded\"));\n        };\n        request.onerror = function handleError() {\n            reject(new Error('Network Error'));\n        };\n        request.onreadystatechange = function handleLoad() {\n            if (request.readyState !== 4) {\n                return false;\n            }\n            var responseHeaders = Object(_helpers_headers__WEBPACK_IMPORTED_MODULE_0__[\"parseHeaders\"])(request.getAllResponseHeaders());\n            var responseData = responseType !== 'text' ? request.response : request.responseText;\n            var response = {\n                data: responseData,\n                status: request.status,\n                statusText: request.statusText,\n                headers: responseHeaders,\n                config: config,\n                request: request\n            };\n            handleResponse(response);\n        };\n        function handleResponse(response) {\n            var status = response.status;\n            if (status >= 200 && status < 300) {\n                resolve(response);\n            }\n            else {\n                reject(new Error(\"request failed with status code \" + response.status));\n            }\n        }\n        Object.keys(headers).forEach(function (name) {\n            if (data === null && name.toLocaleLowerCase() === 'content-type') {\n                delete headers[name];\n            }\n            else {\n                request.setRequestHeader(name, headers[name]);\n            }\n        });\n        request.send(data);\n    });\n}\n\n\n//# sourceURL=webpack:///./src/xhr.ts?");
+eval("\n\n//# sourceURL=webpack:///./src/types/index.ts?");
 
 /***/ }),
 

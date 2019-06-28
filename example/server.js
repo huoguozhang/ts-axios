@@ -69,6 +69,16 @@ router.get('/error/timeout', function(req, res) {
     })
   }, 3000)
 })
+let extendPath = '/extend/'
+const methods = ['get', 'head', 'options', 'delete', 'post', 'put', 'patch']
+methods.forEach(method => {
+  router[method](extendPath + method, (req, res) => {
+    res.json({
+      code: 0,
+      req: req.method
+    })
+  })
+})
 app.use(router)
 module.exports = new Promise(resolve => {
   portfinder.basePort = process.env.PORT || 8080
