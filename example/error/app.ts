@@ -35,7 +35,7 @@ axios({
   timeout: 2000
 }).then((res) => {
   console.log(res)
-}).catch((e) => {
-  console.log(e.message)
-  console.log(e)
+}).catch((e: AxiosError) => {
+  console.log('message', e.message)
+  console.log('错误：', 'xxx')
 })
