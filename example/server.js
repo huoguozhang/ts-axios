@@ -79,6 +79,16 @@ methods.forEach(method => {
     })
   })
 })
+router.get(extendPath + 'user', (req, res) => {
+  res.json({
+    code: 0,
+    message: 'ok',
+    result: {
+      name: '张大彪',
+      age: 35
+    }
+  })
+})
 app.use(router)
 module.exports = new Promise(resolve => {
   portfinder.basePort = process.env.PORT || 8080
