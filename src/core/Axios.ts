@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, AxiosPromise, Method } from '../types'
 import dispatchRequest from './dispatchRequest'
 export default class Axios {
-  request(url: any, config: any): AxiosPromise {
+  request(url: any, config?: any): AxiosPromise {
     if (typeof url === 'string') {
       (config || (config = {})).url = url 
     } else {

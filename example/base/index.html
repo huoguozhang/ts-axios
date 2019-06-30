@@ -3,9 +3,29 @@
 <head>
   <meta charset="utf-8">
   <title>base</title>
+  <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
 </head>
 <body>
-<script src="/__build__/base.js"></script>
+<!-- <script src="/__build__/base.js"></script> -->
+<script>
+  axios.get()
+  axios.interceptors.request.use(function (config) {
+  // 在发送请求之前做些什么
+  return config;
+  }, function (error) {
+  // 对请求错误做些什么
+  return Promise.reject(error);
+  });
+
+  // 添加响应拦截器
+  axios.interceptors.response.use(function (response) {
+  // 对响应数据做点什么
+  return response;
+  }, function (error) {
+  // 对响应错误做点什么
+  return Promise.reject(error);
+  });
+</script>
 </body>
 </html>
 
