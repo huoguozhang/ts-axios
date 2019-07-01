@@ -89,6 +89,9 @@ router.get(extendPath + 'user', (req, res) => {
     }
   })
 })
+router.get('/interceptor/get', (req, res) => {
+  res.json('interceptor')
+})
 app.use(router)
 module.exports = new Promise(resolve => {
   portfinder.basePort = process.env.PORT || 8080

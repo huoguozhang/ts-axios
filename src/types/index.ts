@@ -1,4 +1,4 @@
-import { AxiosInstance } from './index';
+import { AxiosInstance } from './index'
 export type Method =
   | 'get'
   | 'GET'
@@ -31,7 +31,7 @@ export interface AxiosResponse<T = any> {
   config: AxiosRequestConfig
   request: any
 }
-export interface AxiosPromise<T> extends Promise<AxiosResponse<T>> {}
+export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {}
 export interface AxiosError extends Error {
   isAxiosError: boolean
   config: AxiosRequestConfig
@@ -40,6 +40,10 @@ export interface AxiosError extends Error {
   response?: AxiosResponse
 }
 export interface Axios {
+  interceptors: {
+    request: AxiosInterceptorManager<AxiosRequestConfig>
+    response: AxiosInterceptorManager<AxiosResponse>
+  }
   // (config: AxiosRequestConfig): AxiosPromise
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
   get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
@@ -64,4 +68,3 @@ export interface ResolvedFn<T = any> {
 export interface RejectedFn {
   (error: any): any
 }
-
