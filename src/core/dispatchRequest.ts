@@ -11,7 +11,7 @@ function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config)
   config.headers = transformHeader(config)
   config.data = transformRequestData(config)
-  config.headers = flattenHeaders(config.headers, config.method)
+  config.headers = flattenHeaders(config.headers, config.method!)
 }
 function transformHeader(config: AxiosRequestConfig) {
   const { headers = {}, data } = config

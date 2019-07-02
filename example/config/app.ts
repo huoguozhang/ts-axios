@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>base</title>
-  <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
-</head>
-<body>
-<!-- <script src="/__build__/base.js"></script> -->
-<script>
-  axios.defaults.headers.common['xxx'] = 123
+import axios from '../../src/index'
+axios.defaults.headers.common['xxx'] = 123
 axios.defaults.headers.get['yyy'] = 333
 axios({
   url: '/extend/post',
@@ -46,7 +37,4 @@ axios({
 }).then((res) => {
   console.log(res.data)
 })
-</script>
-</body>
-</html>
-
+window.axios = axios

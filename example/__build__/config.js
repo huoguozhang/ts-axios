@@ -258,7 +258,7 @@
 /******/ 				};
 /******/ 			});
 /******/ 			hotUpdate = {};
-/******/ 			var chunkId = "simple";
+/******/ 			var chunkId = "config";
 /******/ 			// eslint-disable-next-line no-lone-blocks
 /******/ 			{
 /******/ 				/*globals chunkId */
@@ -791,20 +791,20 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(5)(__webpack_require__.s = 5);
+/******/ 	return hotCreateRequire(1)(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./example/simple/app.ts":
+/***/ "./example/config/app.ts":
 /*!*******************************!*\
-  !*** ./example/simple/app.ts ***!
+  !*** ./example/config/app.ts ***!
   \*******************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/index */ \"./src/index.ts\");\n\r\nObject(_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\r\n    method: 'get',\r\n    url: '/simple/get#home',\r\n    params: {\r\n        a: 1,\r\n        b: 2\r\n    }\r\n});\r\nconsole.log('simple', 'hello world');\r\n\n\n//# sourceURL=webpack:///./example/simple/app.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/index */ \"./src/index.ts\");\n\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].defaults.headers.common['test2'] = 123;\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].defaults.headers.get['test3'] = 333;\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].\r\n    axios({\r\n    url: '/extend/post',\r\n    method: 'post',\r\n    data: {\r\n        a: 1\r\n    },\r\n    headers: {\r\n        test: '321'\r\n    }\r\n}).then(function (res) {\r\n    console.log(res.data);\r\n});\r\n\n\n//# sourceURL=webpack:///./example/config/app.ts?");
 
 /***/ }),
 
@@ -1099,14 +1099,14 @@ eval("\n\n//# sourceURL=webpack:///./src/types/index.ts?");
 
 /***/ }),
 
-/***/ 5:
+/***/ 1:
 /*!*******************************************************************!*\
-  !*** multi webpack-hot-middleware/client ./example/simple/app.ts ***!
+  !*** multi webpack-hot-middleware/client ./example/config/app.ts ***!
   \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! webpack-hot-middleware/client */\"./node_modules/webpack-hot-middleware/client.js\");\nmodule.exports = __webpack_require__(/*! C:\\Users\\Administrator\\Desktop\\ts-axios\\example\\simple\\app.ts */\"./example/simple/app.ts\");\n\n\n//# sourceURL=webpack:///multi_webpack-hot-middleware/client_./example/simple/app.ts?");
+eval("__webpack_require__(/*! webpack-hot-middleware/client */\"./node_modules/webpack-hot-middleware/client.js\");\nmodule.exports = __webpack_require__(/*! C:\\Users\\Administrator\\Desktop\\ts-axios\\example\\config\\app.ts */\"./example/config/app.ts\");\n\n\n//# sourceURL=webpack:///multi_webpack-hot-middleware/client_./example/config/app.ts?");
 
 /***/ })
 
