@@ -22,7 +22,23 @@ axios({
     a: 'zlj',
     b: 2,
     arr
-  }
+  },
+  transformRequest: [
+    function(data, headers) {
+      // Do whatever you want to transform the data
+
+      return data
+    }
+  ],
+
+  // `transformResponse` allows changes to the response data to be made before
+  // it is passed to then/catch
+  transformResponse: [
+    function(data) {
+      // Do whatever you want to transform the data
+      return data
+    }
+  ]
 }).then(res => {
   console.log(res)
 })

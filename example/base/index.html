@@ -16,32 +16,24 @@ axios({
   data: {
     a: 1
   },
+  transformRequest: [function (data, headers) {
+  // Do whatever you want to transform the data
+  data.xxx = 'xxx'
+    console.log(data, headers)
+  return JSON.stringify(data);
+  }],
+
+  // `transformResponse` allows changes to the response data to be made before
+  // it is passed to then/catch
+  transformResponse: [function (data) {
+  // Do whatever you want to transform the data
+  data.msg = 'ok'
+  console.log('data', data.msg)
+  return data;
+  }],
   headers: {
-    test: '321'
-  }
-}).then((res) => {
-  console.log(res.data)
-})
-axios({
-  url: '/extend/get',
-  method: 'get',
-  data: {
-    a: 1
-  },
-  headers: {
-    test: '321'
-  }
-}).then((res) => {
-  console.log(res.data)
-})
-axios({
-  url: '/extend/delete',
-  method: 'delete',
-  data: {
-    a: 1
-  },
-  headers: {
-    test: '321'
+    test: '321',
+    'conten-type': 'application/json;utf-8'
   }
 }).then((res) => {
   console.log(res.data)
