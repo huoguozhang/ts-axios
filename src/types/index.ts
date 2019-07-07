@@ -1,4 +1,5 @@
 import { AxiosInstance } from './index'
+import { AxiosRequestConfig } from 'axios'
 export type Method =
   | 'get'
   | 'GET'
@@ -24,6 +25,11 @@ export interface AxiosRequestConfig {
   timeout?: number
   cancelToken?: CancelToken
   [propName: string]: any
+  transformRequest?: AxiosTransformer | AxiosTransformer[]
+  transformResponse?: AxiosTransformer | AxiosTransformer[]
+}
+export interface AxiosTransformer {
+  (data: any, headers: any): any
 }
 export interface AxiosResponse<T = any> {
   data: T
@@ -42,6 +48,7 @@ export interface AxiosError extends Error {
   response?: AxiosResponse
 }
 export interface Axios {
+  defaults: AxiosRequestConfig
   interceptors: {
     request: AxiosInterceptorManager<AxiosRequestConfig>
     response: AxiosInterceptorManager<AxiosResponse>
@@ -59,6 +66,9 @@ export interface Axios {
 export interface AxiosInstance extends Axios {
   <T = any>(config: AxiosRequestConfig): AxiosPromise<T>
   <T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+}
+export interface AxiosStatic extends AxiosInstance {
+  create(config?: AxiosRequestConfig): AxiosInstance
 }
 export interface AxiosInterceptorManager<T> {
   use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number

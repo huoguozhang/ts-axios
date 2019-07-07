@@ -1,40 +1,25 @@
 import axios from '../../src/index'
 axios.defaults.headers.common['xxx'] = 123
 axios.defaults.headers.get['yyy'] = 333
-axios({
+import qs from 'qs'
+const instance = axios.create({
+  transformRequest: [(function(data) {
+    return qs.stringify(data)
+  }), ...(axios.defaults.transformRequest as AxiosTransformer[])],
+  transformResponse: [...(axios.defaults.transformResponse as AxiosTransformer[]), function(data) {
+    if (typeof data === 'object') {
+      data.b = 2
+    }
+    return data
+  }]
+})
+
+instance({
   url: '/extend/post',
   method: 'post',
   data: {
     a: 1
-  },
-  headers: {
-    test: '321'
   }
 }).then((res) => {
   console.log(res.data)
 })
-axios({
-  url: '/extend/get',
-  method: 'get',
-  data: {
-    a: 1
-  },
-  headers: {
-    test: '321'
-  }
-}).then((res) => {
-  console.log(res.data)
-})
-axios({
-  url: '/extend/delete',
-  method: 'delete',
-  data: {
-    a: 1
-  },
-  headers: {
-    test: '321'
-  }
-}).then((res) => {
-  console.log(res.data)
-})
-window.axios = axios
