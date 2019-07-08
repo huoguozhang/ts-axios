@@ -80,13 +80,15 @@ methods.forEach(method => {
   })
 })
 router.get(extendPath + 'user', (req, res) => {
-  res.json({
-    code: 0,
-    message: 'ok',
-    result: {
-      name: '张大彪',
-      age: 35
-    }
+  setTimeout(() => {
+    res.json({
+      code: 0,
+      message: 'ok',
+      result: {
+        name: '张大彪',
+        age: 35
+      }
+    })
   })
 })
 router.get('/interceptor/get', (req, res) => {

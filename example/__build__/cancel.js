@@ -258,7 +258,7 @@
 /******/ 				};
 /******/ 			});
 /******/ 			hotUpdate = {};
-/******/ 			var chunkId = "interceptor";
+/******/ 			var chunkId = "cancel";
 /******/ 			// eslint-disable-next-line no-lone-blocks
 /******/ 			{
 /******/ 				/*globals chunkId */
@@ -791,20 +791,20 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(5)(__webpack_require__.s = 5);
+/******/ 	return hotCreateRequire(1)(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./example/interceptor/app.ts":
-/*!************************************!*\
-  !*** ./example/interceptor/app.ts ***!
-  \************************************/
+/***/ "./example/cancel/app.ts":
+/*!*******************************!*\
+  !*** ./example/cancel/app.ts ***!
+  \*******************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/index */ \"./src/index.ts\");\n\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].interceptors.request.use(function (config) {\r\n    config.headers.test += '1';\r\n    return config;\r\n});\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].interceptors.request.use(function (config) {\r\n    config.headers.test += '2';\r\n    return config;\r\n});\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].interceptors.request.use(function (config) {\r\n    config.headers.test += '3';\r\n    return config;\r\n});\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].interceptors.response.use(function (res) {\r\n    res.data += '1';\r\n    return res;\r\n});\r\nvar interceptor = _src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].interceptors.response.use(function (res) {\r\n    res.data += '2';\r\n    return res;\r\n});\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].interceptors.response.use(function (res) {\r\n    res.data += '3';\r\n    return res;\r\n});\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].interceptors.response.eject(interceptor);\r\nObject(_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"])({\r\n    url: '/interceptor/get',\r\n    method: 'get',\r\n    headers: {\r\n        test: ''\r\n    }\r\n}).then(function (res) {\r\n    console.log(res.data);\r\n});\r\n\n\n//# sourceURL=webpack:///./example/interceptor/app.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _src_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../src/index */ \"./src/index.ts\");\n\r\nvar CancelToken = _src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].CancelToken;\r\nvar source = CancelToken.source();\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].get('/cancel/get', {\r\n    cancelToken: source.token\r\n}).catch(function (e) {\r\n    if (_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].isCancel(e)) {\r\n        console.log('Request canceled', e.message);\r\n    }\r\n});\r\nsetTimeout(function () {\r\n    source.cancel('Operation canceled by the user.');\r\n    _src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].post('/cancel/post', { a: 1 }, { cancelToken: source.token }).catch(function (e) {\r\n        if (_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].isCancel(e)) {\r\n            console.log(e.message);\r\n        }\r\n    });\r\n}, 100);\r\nvar cancel;\r\n_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].get('/cancel/get', {\r\n    cancelToken: new CancelToken(function (c) {\r\n        cancel = c;\r\n    })\r\n}).catch(function (e) {\r\n    if (_src_index__WEBPACK_IMPORTED_MODULE_0__[\"default\"].isCancel(e)) {\r\n        console.log('Request canceled');\r\n    }\r\n});\r\nsetTimeout(function () {\r\n    cancel();\r\n}, 200);\r\n\n\n//# sourceURL=webpack:///./example/cancel/app.ts?");
 
 /***/ }),
 
@@ -1135,14 +1135,14 @@ eval("\n\n//# sourceURL=webpack:///./src/types/index.ts?");
 
 /***/ }),
 
-/***/ 5:
-/*!************************************************************************!*\
-  !*** multi webpack-hot-middleware/client ./example/interceptor/app.ts ***!
-  \************************************************************************/
+/***/ 1:
+/*!*******************************************************************!*\
+  !*** multi webpack-hot-middleware/client ./example/cancel/app.ts ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! webpack-hot-middleware/client */\"./node_modules/webpack-hot-middleware/client.js\");\nmodule.exports = __webpack_require__(/*! C:\\Users\\Administrator\\Desktop\\ts-axios\\example\\interceptor\\app.ts */\"./example/interceptor/app.ts\");\n\n\n//# sourceURL=webpack:///multi_webpack-hot-middleware/client_./example/interceptor/app.ts?");
+eval("__webpack_require__(/*! webpack-hot-middleware/client */\"./node_modules/webpack-hot-middleware/client.js\");\nmodule.exports = __webpack_require__(/*! C:\\Users\\Administrator\\Desktop\\ts-axios\\example\\cancel\\app.ts */\"./example/cancel/app.ts\");\n\n\n//# sourceURL=webpack:///multi_webpack-hot-middleware/client_./example/cancel/app.ts?");
 
 /***/ })
 
