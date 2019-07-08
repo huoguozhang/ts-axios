@@ -1,6 +1,5 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
 const portfinder = require('portfinder')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -9,6 +8,7 @@ const WebpackConfig = require('./webpack.config')
 const app = express()
 const compiler = webpack(WebpackConfig)
 const router = express.Router()
+const cookieParser = require('cookie-parser')
 app.use(webpackDevMiddleware(compiler, {
   publicPath: '/__build__/',
   stats: {
@@ -94,21 +94,10 @@ router.get(extendPath + 'user', (req, res) => {
 router.get('/interceptor/get', (req, res) => {
   res.json('interceptor')
 })
-const cors = {
-  'Access-Control-Allow-Origin': 'http://localhost:8080',
-  'Access-Control-Allow-Credentials': true,
-  'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type'
-}
-
-router.post('/more/server2', function(req, res) {
-  res.set(cors)
-  res.json(req.cookies)
-})
-
-router.options('/more/server2', function(req, res) {
-  res.set(cors)
-  res.end()
+router.get('/more/get', (req, res) => {
+  res.json({
+    msg: req.cookies
+  })
 })
 app.use(router)
 module.exports = new Promise(resolve => {
