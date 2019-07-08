@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const portfinder = require('portfinder')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -16,11 +17,10 @@ app.use(webpackDevMiddleware(compiler, {
   }
 }))
 app.use(webpackHotMiddleware(compiler))
-
 app.use(express.static(__dirname))
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser())
 router.get('/simple/get', function(req, res) {
   res.json({
     msg: `hello world`
@@ -93,6 +93,22 @@ router.get(extendPath + 'user', (req, res) => {
 })
 router.get('/interceptor/get', (req, res) => {
   res.json('interceptor')
+})
+const cors = {
+  'Access-Control-Allow-Origin': 'http://localhost:8080',
+  'Access-Control-Allow-Credentials': true,
+  'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+}
+
+router.post('/more/server2', function(req, res) {
+  res.set(cors)
+  res.json(req.cookies)
+})
+
+router.options('/more/server2', function(req, res) {
+  res.set(cors)
+  res.end()
 })
 app.use(router)
 module.exports = new Promise(resolve => {
