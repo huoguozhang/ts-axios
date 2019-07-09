@@ -4,6 +4,8 @@ import { transformRequest, transformResponse } from './helpers/data'
 const defaults: AxiosRequestConfig = {
   method: 'get',
   timeout: 0,
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
   transformRequest: [
     function(data: any, headers: any): any {
       processHeaders(headers, data)
