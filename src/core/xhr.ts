@@ -15,11 +15,19 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       cancelToken,
       withCredentials,
       xsrfCookieName,
-      xsrfHeaderName
+      xsrfHeaderName,
+      onDownloadProgress,
+      onUploadProgress
     } = config
     const request = new XMLHttpRequest()
     if (responseType) {
       request.responseType = responseType
+    }
+    if (onDownloadProgress) {
+      request.onprogress = onDownloadProgress
+    }
+    if (onUploadProgress) {
+      request.upload.onprogress = onUploadProgress
     }
     request.open(method.toLocaleUpperCase(), url!, false)
     if (withCredentials) {
