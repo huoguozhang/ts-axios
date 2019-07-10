@@ -9,12 +9,17 @@ const app = express()
 const compiler = webpack(WebpackConfig)
 const router = express.Router()
 const cookieParser = require('cookie-parser')
+const multipart = require('connect-multiparty')
+const path = require('path')
 app.use(webpackDevMiddleware(compiler, {
   publicPath: '/__build__/',
   stats: {
     colors: true,
     chunks: false
   }
+}))
+app.use(multipart({
+  uploadDir: path.resolve(__dirname, 'upload-file')
 }))
 app.use(webpackHotMiddleware(compiler))
 app.use(express.static(__dirname, {
@@ -102,6 +107,11 @@ router.get('/more/get', (req, res) => {
   res.json({
     msg: req.cookies
   })
+})
+
+router.post('/more/upload', function(req, res) {
+  console.log(req.body, req.files)
+  res.end('upload success!')
 })
 app.use(router)
 module.exports = new Promise(resolve => {
