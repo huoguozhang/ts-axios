@@ -10,6 +10,7 @@ const compiler = webpack(WebpackConfig)
 const router = express.Router()
 const cookieParser = require('cookie-parser')
 const multipart = require('connect-multiparty')
+const atob = require('atob')
 const path = require('path')
 app.use(webpackDevMiddleware(compiler, {
   publicPath: '/__build__/',
@@ -112,6 +113,19 @@ router.get('/more/get', (req, res) => {
 router.post('/more/upload', function(req, res) {
   console.log(req.body, req.files)
   res.end('upload success!')
+})
+router.post('/more/post', function(req, res) {
+  const auth = req.headers.authorization
+  console.log(auth)
+  const [type, credentials] = auth.split(' ')
+  console.log(atob(credentials))
+  const [username, password] = atob(credentials).split(':')
+  if (type === 'Basic' && username === 'zlj' && password === '123456') {
+    res.json(req.body)
+  } else {
+    res.status = 401
+    res.end('UnAuthorization')
+  }
 })
 app.use(router)
 module.exports = new Promise(resolve => {
