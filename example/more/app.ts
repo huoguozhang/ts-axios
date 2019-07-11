@@ -1,5 +1,5 @@
 import axios from '../../src/index'
-const instance = axios.create()
+/*const instance = axios.create()
 import NProgress from 'nprogress'
 function calculatePercentage(loaded: number, total: number) {
   return Math.floor(loaded * 1.0) / total
@@ -87,4 +87,11 @@ instance1.get('/more/get', {
   }
 }).then(res => {
   console.log(typeof res.data.data)
+})*/
+const instance2 = axios.create({
+  baseURL: 'https://img.mukewang.com////////'
 })
+
+instance2.get('////5cc01a7b0001a33718720632.jpg')
+
+// instance2.get('https://img.mukewang.com/szimg/5becd5ad0001b89306000338-360-202.jpg')
