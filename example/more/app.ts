@@ -56,13 +56,18 @@ uploadEl!.addEventListener('click', e => {
     instance.post('/more/upload', data)
   }
 })
-axios.post('/more/post', {
-  a: 1
-}, {
-  auth: {
-    username: 'zlj',
-    password: '123456'
+axios.get('/more/304').then(res => {
+  console.log('ok1', res)
+}).catch((e: AxiosError) => {
+  console.log('error1', e.message)
+})
+
+axios.get('/more/304', {
+  validateStatus(status) {
+    return status >= 200 && status < 400
   }
 }).then(res => {
-  console.log(res)
+  console.log('ok2', res)
+}).catch((e: AxiosError) => {
+  console.log('error2', e.message)
 })

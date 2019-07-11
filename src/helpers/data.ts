@@ -11,7 +11,8 @@ export function transformResponse(data: any): any {
     try {
       data = JSON.parse(data)
     } catch (e) {
-      throw new Error(e)
+      return data
+      // throw new Error(e)
     }
   }
   return data
