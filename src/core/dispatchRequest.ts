@@ -18,9 +18,8 @@ function transformHeader(config: AxiosRequestConfig) {
   const { headers = {}, data } = config
   return processHeaders(headers, data)
 }
-function transformURL(config: AxiosRequestConfig): string {
+export function transformURL(config: AxiosRequestConfig): string {
   let { url, params, paramsSerializer, baseURL } = config
-  debugger
   if (baseURL && !isAbsoluteURL(url!)) {
     url = combineURL(baseURL, url)
   }
