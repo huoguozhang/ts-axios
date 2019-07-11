@@ -4,7 +4,7 @@ import NProgress from 'nprogress'
 function calculatePercentage(loaded: number, total: number) {
   return Math.floor(loaded * 1.0) / total
 }
-
+import qs from 'qs'
 function loadProgressBar() {
   const setupStartProgress = () => {
     instance.interceptors.request.use(config => {
@@ -56,18 +56,35 @@ uploadEl!.addEventListener('click', e => {
     instance.post('/more/upload', data)
   }
 })
-axios.get('/more/304').then(res => {
-  console.log('ok1', res)
-}).catch((e: AxiosError) => {
-  console.log('error1', e.message)
+axios.get('/more/get', {
+  params: new URLSearchParams('a=b&c=d')
+}).then(res => {
+  console.log(res)
 })
 
-axios.get('/more/304', {
-  validateStatus(status) {
-    return status >= 200 && status < 400
+axios.get('/more/get', {
+  params: {
+    a: 1,
+    b: 2,
+    c: ['a', 'b', 'c'],
+    d: {xxx: 'xxx'}
   }
 }).then(res => {
-  console.log('ok2', res)
-}).catch((e: AxiosError) => {
-  console.log('error2', e.message)
+  console.log(res)
+})
+
+const instance1 = axios.create({
+  paramsSerializer(params) {
+    return qs.stringify(params, { arrayFormat: 'brackets' })
+  }
+})
+
+instance1.get('/more/get', {
+  params: {
+    a: 1,
+    b: 2,
+    c: ['a', 'b', 'c']
+  }
+}).then(res => {
+  console.log(typeof res.data.data)
 })

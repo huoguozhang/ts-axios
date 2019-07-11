@@ -106,7 +106,7 @@ router.get('/interceptor/get', (req, res) => {
 })
 router.get('/more/get', (req, res) => {
   res.json({
-    msg: req.cookies
+    data: req.query
   })
 })
 
