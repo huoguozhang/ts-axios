@@ -32,7 +32,7 @@ export default class Axios {
   }
   getUri(config?: AxiosRequestConfig) {
     config = mergeConfig(this.defaults, config)
-    return transformURL(config)
+    return transformURL(config!)
   }
   request(url: any, config?: any): AxiosPromise {
     if (typeof url === 'string') {
