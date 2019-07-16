@@ -4,11 +4,11 @@ describe('helpers:header', () => {
     test('should parse headers', () => {
       const parsed = parseHeaders(
         `Content-Type: application/json\r\n` +
-        'Connection: keep-alive\r\n' +
-        'Transfer-Encoding: chunked\r\n' +
-        'Date: Tue, 21 May 2019 09:23:44 GMT\r\n' +
-        ':aa\r\n' +
-        'key:'
+          'Connection: keep-alive\r\n' +
+          'Transfer-Encoding: chunked\r\n' +
+          'Date: Tue, 21 May 2019 09:23:44 GMT\r\n' +
+          ':aa\r\n' +
+          'key:'
       )
 
       expect(parsed['content-type']).toBe('application/json')
@@ -37,7 +37,7 @@ describe('helpers:header', () => {
 
     test('should set Content-Type if not set and data is plainObject', () => {
       const headers: any = {}
-      processHeaders(header, {a: 1})
+      processHeaders(headers, { a: 1 })
       expect(headers['Content-Type']).toBe('application/json;charset=utf-8')
     })
 
@@ -76,7 +76,20 @@ describe('helpers:header', () => {
           'X-COMMON-HEADER': 'commonHeaderValue'
         })
       })
+      test('should flatten the headers without common headers', () => {
+        const headers = {
+          Accept: 'application/json',
+          get: {
+            'X-GET-HEADER': 'getHeaderValue'
+          }
+        }
+
+        expect(flattenHeaders(headers, 'patch')).toEqual({ Accept: 'application/json' })
+      })
+      test('should do nothing if headers is undefined or null', () => {
+        expect(flattenHeaders(undefined, 'get')).toBeUndefined()
+        expect(flattenHeaders(null, 'post')).toBeNull()
+      })
     })
   })
-
 })
