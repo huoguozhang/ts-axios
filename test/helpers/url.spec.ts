@@ -38,7 +38,7 @@ describe('helpers: url', () => {
             bar: 'baz'
           }
         })
-      ).toBe('/foo/foo=' + encodeURIComponent('{bar: "baz"}'))
+      ).toBe('/foo?foo=' + encodeURI('{"bar":"baz"}'))
     })
 
     test('should support array params', () => {
@@ -49,6 +49,22 @@ describe('helpers: url', () => {
       ).toBe('/foo?foo[]=bar&foo[]=baz')
     })
 
+    test('should support special char params', () => {
+      expect(
+        buildURL('/foo', {
+          foo: '@:$, '
+        })
+      ).toBe('/foo?foo=@:$,+')
+    })
+
+    test('should support existing params', () => {
+      expect(
+        buildURL('/foo?foo=bar', {
+          bar: 'baz'
+        })
+      ).toBe('/foo?foo=bar&bar=baz')
+    })
+
     test('should correct discard url hash mark', () => {
       expect(
         buildURL('/foo?foo=bar#home', {
@@ -57,8 +73,73 @@ describe('helpers: url', () => {
       ).toBe('/foo?foo=bar&query=baz')
     })
 
-   /* test('should use serializer if provided', () => {
+    test('should use serializer if provided', () => {
+      const serializer = jest.fn(() => {
+        return 'foo=bar'
+      })
+      const params = { foo: 'bar' }
+      expect(buildURL('/foo', params, serializer)).toBe('/foo?foo=bar')
+      expect(serializer).toHaveBeenCalled()
+      expect(serializer).toHaveBeenCalledWith(params)
+    })
 
-    })*/
+    test('should support URLSearchParams', () => {
+      expect(buildURL('/foo', new URLSearchParams('bar=baz'))).toBe('/foo?bar=baz')
+    })
+  })
+
+  describe('isAbsoluteURL', () => {
+    test('should return true if URL begins with valid scheme name', () => {
+      expect(isAbsoluteURL('https://api.github.com/users')).toBeTruthy()
+      expect(isAbsoluteURL('ccc-ss-v1.0://sdsadsa')).toBeTruthy()
+      expect(isAbsoluteURL('//example.com')).toBeTruthy()
+    })
+
+    test('should return false if URL begins with invalid scheme name', () => {
+      expect(isAbsoluteURL('123://example.com/')).toBeFalsy()
+      expect(isAbsoluteURL('!valid://sdsds')).toBeFalsy()
+    })
+
+    test('should return true if URL is protocol-relative', () => {
+      expect(isAbsoluteURL('//example.com')).toBeTruthy()
+    })
+
+    test('should return false if URL is relative', () => {
+      expect(isAbsoluteURL('/foo')).toBeFalsy()
+      expect(isAbsoluteURL('foo')).toBeFalsy()
+    })
+  })
+
+  describe('combineURL', () => {
+    test('should combine url', () => {
+      expect(combineURL('https://api.github.com', '/users')).toBe('https://api.github.com/users')
+    })
+
+    test('should remove duplicate slashes', () => {
+      expect(combineURL('https://api.github.com/', '/users')).toBe('https://api.github.com/users')
+    })
+
+    test('should insert missing slash', () => {
+      expect(combineURL('https://api.github.com', 'users')).toBe('https://api.github.com/users')
+    })
+
+    test('should not insert slash when relative url missing/empty', () => {
+      expect(combineURL('https://api.github.com/users', '')).toBe('https://api.github.com/users')
+    })
+
+    test('should allow a single slash for relative url', () => {
+      expect(combineURL('https://api.github.com/users', '/')).toBe('https://api.github.com/users/')
+    })
+
+    describe('isURLSameOrigin', () => {
+      test('should detect same origin', () => {
+        // console.log(window.location.href, 'href')
+        expect(isURLSameOrigin(window.location.href))
+      })
+
+      test('should detect different origin', () => {
+        expect(isURLSameOrigin('https://163.com')).toBeFalsy()
+      })
+    })
   })
 })
