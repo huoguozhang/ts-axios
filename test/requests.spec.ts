@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, AxiosError } from '../src/index'
 import { getAjaxRequest } from './helper'
+import { test } from 'shelljs'
 
 describe('requests', () => {
   beforeEach(() => {
@@ -18,4 +19,5 @@ describe('requests', () => {
       expect(request.method).toBe('GET')
     })
   })
+
 })
