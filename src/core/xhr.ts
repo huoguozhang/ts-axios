@@ -23,7 +23,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       validateStatus
     } = config
     const request = new XMLHttpRequest()
-    request.open(method.toLocaleUpperCase(), url!, false)
+    // console.log(XMLHttpRequest)
+    request.open(method.toUpperCase(), url!, false)
     configureRequest()
     addEvents()
     processHeaders()
