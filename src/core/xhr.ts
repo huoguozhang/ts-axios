@@ -22,14 +22,20 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       auth,
       validateStatus
     } = config
+
     const request = new XMLHttpRequest()
-    // console.log(XMLHttpRequest)
-    request.open(method.toUpperCase(), url!, false)
+
+    request.open(method.toUpperCase(), url!, true)
+
     configureRequest()
+
     addEvents()
+
     processHeaders()
+
     processCancel()
 
+    request.send(data)
     function configureRequest(): void {
       if (responseType) {
         request.responseType = responseType
@@ -50,7 +56,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         request.upload.onprogress = onUploadProgress
       }
       request.ontimeout = function handleTime() {
-        reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'haha', request))
+        reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'timeout', request))
       }
       request.onerror = function handleError() {
         reject(createError('Network Error', config, null, request))
@@ -108,7 +114,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       const status = response.status
       if (!validateStatus || validateStatus(status)) {
         resolve(response)
-      } else {
+      } else if (status >= 100) {
         reject(
           createError(
             `request failed with status code ${response.status}`,
@@ -120,7 +126,5 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         )
       }
     }
-
-    request.send(data)
   })
 }

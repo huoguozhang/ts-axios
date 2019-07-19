@@ -139,6 +139,7 @@
     "jasmine-ajax": "^4.0.0",
     "jasmine-core": "^3.4.0",
     "nprogress": "^0.2.0",
-    "qs": "^6.7.0"
+    "qs": "^6.7.0",
+    "xmlhttprequest": "^1.8.0"
   }
 }
