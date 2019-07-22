@@ -45,7 +45,7 @@ describe('requests', () => {
 
     jasmine.Ajax.uninstall()
 
-    axios('/foo')
+    axios('http://localhost:9999/foo')
       .then(resolveSpy)
       .catch(rejectSpy)
       .then(next)
@@ -211,6 +211,47 @@ describe('requests', () => {
         expect(response.data.code).toBe(1)
         done()
       }, 100)
+    })
+  })
+
+  test('should supply correct response', done => {
+    let response: AxiosResponse
+
+    axios.post('/foo').then(res => {
+      response = res
+    })
+
+    getAjaxRequest().then(request => {
+      request.respondWith({
+        status: 200,
+        statusText: 'OK',
+        responseText: `{"foo": "bar"}`,
+        responseHeaders: {
+          'Content-Type': 'application/json'
+        }
+      })
+    })
+
+    setTimeout(() => {
+      expect(response.data.foo).toBe('bar')
+      expect(response.status).toBe(200)
+      expect(response.statusText).toBe('OK')
+      expect(response.headers['content-type']).toBe('application/json')
+      done()
+    }, 100)
+  })
+
+  test('should allow overriding Content-Type header case-insensitive', () => {
+    let response: AxiosResponse
+
+    axios
+      .post('/foo', { prop: 'value' }, { headers: { 'content-type': 'application/json' } })
+      .then(res => {
+        response = res
+      })
+
+    return getAjaxRequest().then(request => {
+      expect(request.requestHeaders['Content-Type']).toBe('application/json')
     })
   })
 })
