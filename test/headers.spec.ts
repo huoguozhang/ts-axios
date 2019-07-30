@@ -11,11 +11,12 @@ function testHeaderValue(headers: any, key: string, val?: string): void {
       break
     }
   }
+
   if (!found) {
     if (typeof val === 'undefined') {
       expect(headers.hasOwnProperty(key)).toBeFalsy()
     } else {
-      throw new Error(key + 'was not found in headers')
+      throw new Error(key + ' was not found in headers')
     }
   }
 }
@@ -53,12 +54,12 @@ describe('headers', () => {
 
   test('should use application/json when posting an object', () => {
     axios.post('/foo/bar', {
-      fistName: 'foo',
+      firstName: 'foo',
       lastName: 'bar'
     })
 
-    getAjaxRequest().then(request => {
-      testHeaderValue(request.requestHeaders, 'Content-type', 'application/json;charset=utf-8')
+    return getAjaxRequest().then(request => {
+      testHeaderValue(request.requestHeaders, 'Content-Type', 'application/json;charset=utf-8')
     })
   })
 
@@ -70,8 +71,9 @@ describe('headers', () => {
     })
   })
 
-  test('should preserve content-type if data is false', () => {
+  it('should preserve content-type if data is false', () => {
     axios.post('/foo', false)
+
     return getAjaxRequest().then(request => {
       testHeaderValue(request.requestHeaders, 'Content-Type', 'application/x-www-form-urlencoded')
     })
