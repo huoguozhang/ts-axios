@@ -3,7 +3,7 @@ import { AxiosRequestConfig, AxiosResponse } from '../types'
 export class AxiosError extends Error {
   isAxiosError: boolean
   config: AxiosRequestConfig
-  code?: string|null
+  code?: string | null
   request?: any
   response?: AxiosResponse
   constructor(
@@ -13,6 +13,7 @@ export class AxiosError extends Error {
     request?: any,
     response?: AxiosResponse
   ) {
+    /* istanbul ignore next */
     super(message)
     this.config = config
     this.code = code
